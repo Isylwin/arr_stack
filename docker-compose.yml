@@ -1,0 +1,59 @@
+services:
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    restart: unless-stopped
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ${HOST_CONFIG_FOLDER}/radarr:${CONT_CONFIG_FOLDER}
+      - ${HOST_STORAGE_FOLDER}:${CONT_STORAGE_FOLDER}
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ${HOST_CONFIG_FOLDER}/qbittorrent:${CONT_CONFIG_FOLDER}
+      - ${HOST_STORAGE_FOLDER}:${CONT_STORAGE_FOLDER}
+
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    restart: unless-stopped
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ${HOST_CONFIG_FOLDER}/prowlarr:${CONT_CONFIG_FOLDER}
+
+  bazarr:
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr
+    restart: unless-stopped
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+    volumes:
+      - ${HOST_CONFIG_FOLDER}/bazarr:${CONT_CONFIG_FOLDER}
+      - ${HOST_STORAGE_FOLDER}:${CONT_STORAGE_FOLDER}
